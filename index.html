@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>GirGuard AI — Reforestation & Asiatic Wildlife Conflict Mitigation</title>
+<!-- Google Fonts: Plus Jakarta Sans & Outfit -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<!-- FontAwesome 6 CDN -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+<!-- Leaflet CSS -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+<!-- WeForest Inspired Stylesheet -->
+<link rel="stylesheet" href="css/styles.css"/>
+</head>
+<body>
+
+<!-- WEFOREST TOP NOTICE -->
+<div class="wf-top-notice">
+  <div>
+    <i class="fa-solid fa-tree"></i> <strong>GirGuard AI Conservation:</strong> Restoring Gir Forest Sanctuary & Protecting 674+ Endangered Asiatic Lions.
+  </div>
+  <div>
+    <a href="reports.html">Read 2026 Impact Report <i class="fa-solid fa-arrow-right"></i></a>
+  </div>
+</div>
+
+<!-- WEFOREST NAVBAR -->
+<nav class="navbar">
+  <a class="navbar-brand" href="index.html">
+    <div class="logo-badge"><i class="fa-solid fa-paw"></i></div>
+    <div class="brand-title">
+      GirGuard AI
+      <span class="gov-tag">Human-Wildlife Conflict Mitigation</span>
+    </div>
+  </a>
+
+  <ul class="navbar-nav">
+    <li><a href="index.html" class="active"><i class="fa-solid fa-compass"></i> Overview</a></li>
+    <li><a href="movement.html"><i class="fa-solid fa-route"></i> Movement</a></li>
+    <li><a href="alerts.html"><i class="fa-solid fa-bell"></i> Alerts</a></li>
+    <li><a href="response.html"><i class="fa-solid fa-truck-medical"></i> Response</a></li>
+    <li><a href="compensation.html"><i class="fa-solid fa-hand-holding-dollar"></i> Compensation</a></li>
+    <li><a href="hotspots.html"><i class="fa-solid fa-fire"></i> Hotspots</a></li>
+    <li><a href="reports.html"><i class="fa-solid fa-file-contract"></i> Reports</a></li>
+  </ul>
+
+  <div class="navbar-right">
+    <button id="audio-toggle" class="btn btn-outline btn-sm"><i class="fa-solid fa-volume-high"></i> Audio ON</button>
+    <div class="user-profile">
+      <!-- Rendered dynamically by realtime.js -->
+    </div>
+  </div>
+</nav>
+
+<div class="page-wrap">
+
+  <!-- WEFOREST HERO BANNER -->
+  <div class="wf-hero">
+    <div class="wf-hero-tag"><i class="fa-solid fa-shield-cat"></i> Official Conservation Platform</div>
+    <h1>Restoring Ecosystems & Predicting Wildlife Movement in Gir Forest</h1>
+    <p>GirGuard AI uses real-time GPS telemetry, computer vision camera traps, and machine learning to predict Asiatic lion straying, send sub-30 second early warnings to villages, and deploy rapid rescue squads.</p>
+    <div class="wf-hero-actions">
+      <button class="btn btn-outline-white" onclick="document.getElementById('command-map').scrollIntoView({behavior:'smooth'})"><i class="fa-solid fa-map-location-dot"></i> Explore Live GIS Map</button>
+      <button class="btn btn-accent" onclick="openDispatchModal()"><i class="fa-solid fa-truck-medical"></i> Dispatch Rescue Unit</button>
+    </div>
+  </div>
+
+  <!-- IMPACT COUNTER STRIP -->
+  <div class="wf-impact-strip">
+    <div class="impact-item">
+      <div class="impact-val" style="color:var(--wf-red);">7 Alerts</div>
+      <div class="impact-label">Active Village Warnings</div>
+    </div>
+    <div class="impact-item">
+      <div class="impact-val">674+</div>
+      <div class="impact-label">Asiatic Lions Tracked</div>
+    </div>
+    <div class="impact-item">
+      <div class="impact-val" style="color:var(--wf-green-medium);">87.4%</div>
+      <div class="impact-label">AI Forecast Accuracy</div>
+    </div>
+    <div class="impact-item">
+      <div class="impact-val" style="color:var(--wf-amber);">&lt; 30s</div>
+      <div class="impact-label">Early Warning Speed</div>
+    </div>
+    <div class="impact-item">
+      <div class="impact-val">6 Units</div>
+      <div class="impact-label">Rapid Response Squads</div>
+    </div>
+  </div>
+
+  <!-- GIS MAP & LIVE TELEMETRY STREAM GRID -->
+  <div style="display:grid;grid-template-columns: 2fr 1fr;gap:28px;margin-bottom:32px;">
+    
+    <!-- LEAFLET MAP PANEL -->
+    <div class="glass-panel">
+      <div class="panel-header">
+        <div class="panel-title">
+          <i class="fa-solid fa-earth-asia" style="color:var(--wf-green-primary);"></i> Gir Protected Area Network — Live Carnivore Telemetry
+        </div>
+        <div class="panel-meta">Auto-sync 2s • Satellite Telemetry</div>
+      </div>
+      <div id="command-map"></div>
+    </div>
+
+    <!-- LIVE TELEMETRY STREAM -->
+    <div class="glass-panel">
+      <div class="panel-header">
+        <div class="panel-title">
+          <i class="fa-solid fa-tower-cell" style="color:var(--wf-green-primary);"></i> Live Collar Stream
+        </div>
+        <span class="status-badge badge-low">Live Sync</span>
+      </div>
+      <div class="panel-body">
+        
+        <!-- TARGET #GIR-07 METRICS -->
+        <div style="background:var(--wf-red-light);border:1px solid var(--wf-red);padding:16px;border-radius:14px;margin-bottom:16px;">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+            <b style="color:var(--wf-red);font-size:14px;"><i class="fa-solid fa-paw"></i> COLLAR #GIR-07 (Male Lion)</b>
+            <span class="status-badge badge-critical">CRITICAL</span>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;font-family:var(--wf-font-mono);font-size:12px;color:var(--wf-text-dark);">
+            <div>Lat: <span id="gir07-lat" style="font-weight:700;">21.1325</span></div>
+            <div>Lng: <span id="gir07-lng" style="font-weight:700;">70.5284</span></div>
+            <div>Speed: <span id="gir07-speed" style="color:var(--wf-amber);font-weight:700;">4.8 km/h</span></div>
+            <div>Dist: <span id="gir07-dist" style="color:var(--wf-red);font-weight:700;">1.2 km</span></div>
+          </div>
+          <div style="margin-top:12px;display:flex;gap:8px;">
+            <button class="btn btn-danger btn-sm" style="flex:1;" onclick="openDispatchModal('GIR-07')"><i class="fa-solid fa-paper-plane"></i> Dispatch</button>
+            <button class="btn btn-outline btn-sm" onclick="triggerSirenBroadcast()"><i class="fa-solid fa-bullhorn"></i> Siren</button>
+          </div>
+        </div>
+
+        <div class="telemetry-item">
+          <div class="telemetry-info">
+            <div class="telemetry-icon t-icon-amber"><i class="fa-solid fa-cat"></i></div>
+            <div class="telemetry-details">
+              <h4>LEP-03 — Leopard (Maliya)</h4>
+              <p>Dist: 0.8 km • Speed: 2.1 km/h</p>
+            </div>
+          </div>
+          <span class="status-badge badge-high">HIGH</span>
+        </div>
+
+        <div class="telemetry-item">
+          <div class="telemetry-info">
+            <div class="telemetry-icon t-icon-amber"><i class="fa-solid fa-paw"></i></div>
+            <div class="telemetry-details">
+              <h4>GIR-02 — Pride of 3 (Dhari)</h4>
+              <p>Dist: 2.4 km • Speed: 3.2 km/h</p>
+            </div>
+          </div>
+          <span class="status-badge badge-high">HIGH</span>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ALERTS & SQUAD STATUS GRID -->
+  <div style="display:grid;grid-template-columns: 1fr 1fr;gap:28px;">
+    
+    <!-- ALERTS PANEL -->
+    <div class="glass-panel">
+      <div class="panel-header">
+        <div class="panel-title">
+          <i class="fa-solid fa-bell" style="color:var(--wf-red);"></i> Village Threat Alerts
+        </div>
+        <span class="panel-meta">7 Open Alerts</span>
+      </div>
+      <div class="panel-body" style="padding:0;">
+        <table class="tactical-table">
+          <thead>
+            <tr>
+              <th>Target</th>
+              <th>Location</th>
+              <th>Risk</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><b><i class="fa-solid fa-paw" style="color:var(--wf-red);"></i> Lion #GIR-07</b></td>
+              <td>Sasan Village (1.2 km)</td>
+              <td><span class="status-badge badge-critical">Critical</span></td>
+              <td><button class="btn btn-danger btn-sm" onclick="openDispatchModal('GIR-07')">Dispatch</button></td>
+            </tr>
+            <tr>
+              <td><b><i class="fa-solid fa-cat" style="color:var(--wf-amber);"></i> Leopard #LEP-03</b></td>
+              <td>Maliya Livestock Pen</td>
+              <td><span class="status-badge badge-high">High</span></td>
+              <td><button class="btn btn-outline btn-sm" onclick="openDispatchModal('LEP-03')">Dispatch</button></td>
+            </tr>
+            <tr>
+              <td><b><i class="fa-solid fa-paw" style="color:var(--wf-amber);"></i> Lion Pride (3)</b></td>
+              <td>Dhari Forest Edge</td>
+              <td><span class="status-badge badge-high">High</span></td>
+              <td><button class="btn btn-outline btn-sm" onclick="openDispatchModal('GIR-02')">Dispatch</button></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- RESPONSE SQUADS -->
+    <div class="glass-panel">
+      <div class="panel-header">
+        <div class="panel-title">
+          <i class="fa-solid fa-truck-medical" style="color:var(--wf-green-primary);"></i> Rapid Response Squads
+        </div>
+        <span class="panel-meta">6 Squads Operational</span>
+      </div>
+      <div class="panel-body" style="padding:0;">
+        <table class="tactical-table">
+          <thead>
+            <tr>
+              <th>Squad Name</th>
+              <th>Base Station</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><b>Rapid Response Alpha</b></td>
+              <td>Sasan HQ</td>
+              <td><span class="status-badge badge-critical">Active Intercept</span></td>
+            </tr>
+            <tr>
+              <td><b>Rapid Response Beta</b></td>
+              <td>Maliya Base</td>
+              <td><span class="status-badge badge-high">En Route</span></td>
+            </tr>
+            <tr>
+              <td><b>Wildlife Rescue Gamma</b></td>
+              <td>Dhari Sector</td>
+              <td><span class="status-badge badge-low">Standby</span></td>
+            </tr>
+            <tr>
+              <td><b>Community Patrol Delta</b></td>
+              <td>Talala Outpost</td>
+              <td><span class="status-badge badge-low">Standby</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+<!-- DISPATCH MODAL -->
+<div class="modal-backdrop" id="dispatch-modal">
+  <div class="modal-box">
+    <div class="modal-header">
+      <h3><i class="fa-solid fa-paper-plane" style="color:var(--wf-green-primary);"></i> Deploy Rapid Response Squad</h3>
+      <button class="modal-close" onclick="closeDispatchModal()">&times;</button>
+    </div>
+    <form onsubmit="submitDispatchForm(event)">
+      <div class="modal-body">
+        <div class="form-field">
+          <label>Target Threat / Collar</label>
+          <select id="target-threat">
+            <option value="GIR-07">Lion #GIR-07 (Sasan Village - Critical)</option>
+            <option value="LEP-03">Leopard #LEP-03 (Maliya Livestock Pen)</option>
+            <option value="GIR-02">Pride #GIR-02 (Dhari Forest Boundary)</option>
+          </select>
+        </div>
+
+        <div class="form-field">
+          <label>Select Response Unit</label>
+          <select id="response-unit">
+            <option value="RT1">Rapid Response Alpha (Sasan HQ)</option>
+            <option value="RT2">Rapid Response Beta (Maliya Base)</option>
+            <option value="RT3">Wildlife Rescue Gamma (Dhari Base)</option>
+          </select>
+        </div>
+
+        <div class="form-field">
+          <label>Special Instructions</label>
+          <textarea rows="3" placeholder="Enter instructions for field squad..."></textarea>
+        </div>
+      </div>
+      <div style="margin-top:20px;display:flex;justify-content:flex-end;gap:12px;">
+        <button type="button" class="btn btn-outline" onclick="closeDispatchModal()">Cancel</button>
+        <button type="submit" class="btn btn-primary"><i class="fa-solid fa-truck-fast"></i> Authorize Dispatch</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- OFFICER LOGIN MODAL -->
+<div class="modal-backdrop" id="login-modal">
+  <div class="modal-box">
+    <div class="modal-header">
+      <h3><i class="fa-solid fa-user-shield" style="color:var(--wf-green-primary);"></i> Officer Portal Login</h3>
+      <button class="modal-close" onclick="closeLoginModal()">&times;</button>
+    </div>
+    <form onsubmit="submitLoginForm(event)">
+      <div class="modal-body">
+        <div class="form-field">
+          <label>Officer Full Name</label>
+          <input type="text" id="login-name" value="R.K. Jadeja" placeholder="Enter full name" required/>
+        </div>
+        <div class="form-field">
+          <label>Government Email ID</label>
+          <input type="email" value="rk.jadeja@gujaratforest.gov.in" placeholder="name@gujaratforest.gov.in" required/>
+        </div>
+        <div class="form-field">
+          <label>Assigned Operational Role</label>
+          <select id="login-role">
+            <option value="Chief Forest Officer">🛡️ Chief Forest Officer (HQ Command)</option>
+            <option value="Rapid Response Leader">🚓 Rapid Response Unit Commander</option>
+            <option value="Village Alert Officer">🏡 Village Alert & Sarpanch Liaison</option>
+            <option value="Wildlife AI Researcher">🔬 Wildlife Telemetry Researcher</option>
+          </select>
+        </div>
+        <div class="form-field">
+          <label>Authorization Passcode</label>
+          <input type="password" value="••••••••" required/>
+        </div>
+      </div>
+      <div style="margin-top:20px;display:flex;justify-content:space-between;align-items:center;">
+        <button type="button" class="btn btn-outline btn-sm" onclick="logoutOfficer()" style="color:var(--wf-red);border-color:var(--wf-red);"><i class="fa-solid fa-right-from-bracket"></i> Sign Out</button>
+        <div style="display:flex;gap:10px;">
+          <button type="button" class="btn btn-outline" onclick="closeLoginModal()">Cancel</button>
+          <button type="submit" class="btn btn-primary"><i class="fa-solid fa-key"></i> Authenticate & Login</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="footer-content">
+    <div>
+      <div class="footer-brand-title">GirGuard AI Conservation</div>
+      <div style="font-size:12px;color:#a0aec0;margin-top:4px;">Gujarat Forest Department & Project Lion Cell</div>
+    </div>
+    <div>
+      <span style="color:var(--wf-green-light);"><i class="fa-solid fa-circle"></i> Telemetry & GIS Server Active</span>
+    </div>
+  </div>
+</footer>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="js/realtime.js"></script>
+</body>
+</html>

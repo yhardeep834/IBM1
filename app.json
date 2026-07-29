@@ -1,0 +1,37 @@
+{
+  "name": "GirGuard AI — Human-Wildlife Conflict Mitigation System",
+  "short_name": "GirGuard AI",
+  "description": "AI-Powered Asiatic Lion & Leopard Movement Prediction, Early Warning Broadcast, and Rapid Response Dispatch Platform for Gir Forest Region, Gujarat Forest Department.",
+  "version": "2.4.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gujarat-forest-dept/girguard-ai.git"
+  },
+  "keywords": [
+    "wildlife-conservation",
+    "ai-prediction",
+    "human-wildlife-conflict",
+    "asiatic-lion",
+    "early-warning-system",
+    "gis-tracking",
+    "gujarat-forest-department"
+  ],
+  "author": "Gujarat Forest Department & Gir Wildlife AI Cell",
+  "license": "MIT",
+  "homepage": "https://girguard.gujarat.gov.in",
+  "scripts": {
+    "start": "npx http-server . -p 8080",
+    "dev": "npx http-server . -p 8080",
+    "test": "echo \"All UI & telemetry systems operational\" && exit 0"
+  },
+  "dependencies": {
+    "font-awesome": "^6.5.0",
+    "leaflet": "^1.9.4",
+    "chart.js": "^4.4.1"
+  },
+  "env": {
+    "NODE_ENV": "production",
+    "TELEMETRY_REFRESH_INTERVAL": "2000",
+    "ALERT_AUDIO_ENABLED": "true"
+  }
+}

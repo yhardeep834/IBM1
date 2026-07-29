@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>GirGuard AI — Spatial Conflict Hotspot Density</title>
+<!-- Google Fonts: Plus Jakarta Sans & Outfit -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<!-- FontAwesome 6 CDN -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+<!-- Leaflet CSS -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+<!-- WeForest Inspired Stylesheet -->
+<link rel="stylesheet" href="css/styles.css"/>
+</head>
+<body>
+
+<!-- WEFOREST TOP NOTICE -->
+<div class="wf-top-notice">
+  <div>
+    <i class="fa-solid fa-tree"></i> <strong>GirGuard AI Conservation:</strong> Restoring Gir Forest Sanctuary & Protecting 674+ Endangered Asiatic Lions.
+  </div>
+  <div>
+    <a href="reports.html">Read 2026 Impact Report <i class="fa-solid fa-arrow-right"></i></a>
+  </div>
+</div>
+
+<!-- WEFOREST NAVBAR -->
+<nav class="navbar">
+  <a class="navbar-brand" href="index.html">
+    <div class="logo-badge"><i class="fa-solid fa-paw"></i></div>
+    <div class="brand-title">
+      GirGuard AI
+      <span class="gov-tag">Human-Wildlife Conflict Mitigation</span>
+    </div>
+  </a>
+
+  <ul class="navbar-nav">
+    <li><a href="index.html"><i class="fa-solid fa-compass"></i> Overview</a></li>
+    <li><a href="movement.html"><i class="fa-solid fa-route"></i> Movement</a></li>
+    <li><a href="alerts.html"><i class="fa-solid fa-bell"></i> Alerts</a></li>
+    <li><a href="response.html"><i class="fa-solid fa-truck-medical"></i> Response</a></li>
+    <li><a href="compensation.html"><i class="fa-solid fa-hand-holding-dollar"></i> Compensation</a></li>
+    <li><a href="hotspots.html" class="active"><i class="fa-solid fa-fire"></i> Hotspots</a></li>
+    <li><a href="reports.html"><i class="fa-solid fa-file-contract"></i> Reports</a></li>
+  </ul>
+
+  <div class="navbar-right">
+    <button id="audio-toggle" class="btn btn-outline btn-sm"><i class="fa-solid fa-volume-high"></i> Audio ON</button>
+    <div class="user-profile">
+      <!-- Rendered dynamically by realtime.js -->
+    </div>
+  </div>
+</nav>
+
+<div class="page-wrap">
+
+  <div class="page-header">
+    <div>
+      <div class="breadcrumb">GIRGUARD CONSERVATION › <span>SPATIAL CONFLICT HOTSPOTS</span></div>
+      <div class="page-title">
+        <h1><i class="fa-solid fa-fire" style="color:var(--wf-amber);"></i> Human-Wildlife Conflict Hotspot Density</h1>
+      </div>
+      <p>Kernel density estimation (KDE), spatial conflict clustering, and recommended solar fencing perimeters.</p>
+    </div>
+  </div>
+
+  <!-- MAP PANEL -->
+  <div class="glass-panel" style="margin-bottom:32px;">
+    <div class="panel-header">
+      <div class="panel-title">
+        <i class="fa-solid fa-map" style="color:var(--wf-green-primary);"></i> Conflict Hotspot & Proximity Risk Map
+      </div>
+      <div class="panel-meta">Historical Incidents Density Layer</div>
+    </div>
+    <div id="command-map"></div>
+  </div>
+
+  <!-- HOTSPOT TABLE -->
+  <div class="glass-panel">
+    <div class="panel-header">
+      <div class="panel-title">
+        <i class="fa-solid fa-list-check" style="color:var(--wf-green-primary);"></i> Priority Conflict Corridors & Solar Fence Recommendations
+      </div>
+    </div>
+    <div class="panel-body" style="padding:0;">
+      <table class="tactical-table">
+        <thead>
+          <tr>
+            <th>Hotspot Sector</th>
+            <th>District</th>
+            <th>Incidents (30 Days)</th>
+            <th>Primary Species</th>
+            <th>Risk Index</th>
+            <th>Recommended Mitigation</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><b>Sasan Border Fringe</b></td>
+            <td>Junagadh</td>
+            <td style="font-family:var(--wf-font-mono);color:var(--wf-red);font-weight:700;">14 Incidents</td>
+            <td>Asiatic Lion</td>
+            <td><span class="status-badge badge-critical">Critical</span></td>
+            <td>Deploy 4.2 km Solar Fence & Smart Infrared Towers</td>
+          </tr>
+          <tr>
+            <td><b>Maliya Livestock Zone</b></td>
+            <td>Amreli</td>
+            <td style="font-family:var(--wf-font-mono);color:var(--wf-amber);font-weight:700;">9 Incidents</td>
+            <td>Leopard</td>
+            <td><span class="status-badge badge-high">High</span></td>
+            <td>Install Predator-Proof Cattle Sheds & Thermal Cams</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div>
+
+<!-- OFFICER LOGIN MODAL -->
+<div class="modal-backdrop" id="login-modal">
+  <div class="modal-box">
+    <div class="modal-header">
+      <h3><i class="fa-solid fa-user-shield" style="color:var(--wf-green-primary);"></i> Officer Portal Login</h3>
+      <button class="modal-close" onclick="closeLoginModal()">&times;</button>
+    </div>
+    <form onsubmit="submitLoginForm(event)">
+      <div class="modal-body">
+        <div class="form-field">
+          <label>Officer Full Name</label>
+          <input type="text" id="login-name" value="R.K. Jadeja" placeholder="Enter full name" required/>
+        </div>
+        <div class="form-field">
+          <label>Government Email ID</label>
+          <input type="email" value="rk.jadeja@gujaratforest.gov.in" placeholder="name@gujaratforest.gov.in" required/>
+        </div>
+        <div class="form-field">
+          <label>Assigned Operational Role</label>
+          <select id="login-role">
+            <option value="Chief Forest Officer">🛡️ Chief Forest Officer (HQ Command)</option>
+            <option value="Rapid Response Leader">🚓 Rapid Response Unit Commander</option>
+            <option value="Village Alert Officer">🏡 Village Alert & Sarpanch Liaison</option>
+            <option value="Wildlife AI Researcher">🔬 Wildlife Telemetry Researcher</option>
+          </select>
+        </div>
+        <div class="form-field">
+          <label>Authorization Passcode</label>
+          <input type="password" value="••••••••" required/>
+        </div>
+      </div>
+      <div style="margin-top:20px;display:flex;justify-content:space-between;align-items:center;">
+        <button type="button" class="btn btn-outline btn-sm" onclick="logoutOfficer()" style="color:var(--wf-red);border-color:var(--wf-red);"><i class="fa-solid fa-right-from-bracket"></i> Sign Out</button>
+        <div style="display:flex;gap:10px;">
+          <button type="button" class="btn btn-outline" onclick="closeLoginModal()">Cancel</button>
+          <button type="submit" class="btn btn-primary"><i class="fa-solid fa-key"></i> Authenticate & Login</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="footer-content">
+    <div>
+      <div class="footer-brand-title">GirGuard AI Conservation</div>
+      <div style="font-size:12px;color:#a0aec0;margin-top:4px;">Spatial Analytics Division</div>
+    </div>
+    <div>
+      <span style="color:var(--wf-green-light);"><i class="fa-solid fa-circle"></i> GIS Server Active</span>
+    </div>
+  </div>
+</footer>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="js/realtime.js"></script>
+</body>
+</html>
