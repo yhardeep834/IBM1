@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>GirGuard AI — Dashboard Overview</title>
+<link rel="stylesheet" href="css/styles.css"/>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+  <a class="navbar-brand" href="index.html">
+    <div class="logo-icon">🦁</div>
+    <div class="brand-text">GirGuard AI<span class="tagline">Human-Wildlife Conflict Mitigation</span></div>
+  </a>
+  <ul class="navbar-nav">
+    <li><a href="index.html" class="active">Overview</a></li>
+    <li><a href="movement.html">Movement</a></li>
+    <li><a href="alerts.html">Alerts</a></li>
+    <li><a href="response.html">Response</a></li>
+    <li><a href="compensation.html">Compensation</a></li>
+    <li><a href="hotspots.html">Hotspots</a></li>
+    <li><a href="reports.html">Reports</a></li>
+  </ul>
+  <div class="navbar-right">
+    <span class="role-badge">Forest Officer</span>
+    <div class="user-avatar">RK</div>
+  </div>
+</nav>
+
+<!-- LIVE ALERT BANNER -->
+<div class="alert-banner">
+  <div class="pulse-dot"></div>
+  <strong>CRITICAL ALERT:</strong>&nbsp; Male Asiatic Lion (GPS Collar #GIR-07) detected 1.2 km from Sasan village at 14:32 IST — High sighting risk in next 2 hours.
+  <div class="alert-actions">
+    <a href="alerts.html"><button class="btn btn-white btn-sm">View Alert</button></a>
+    <a href="response.html"><button class="btn btn-outline-white btn-sm">Dispatch Team</button></a>
+  </div>
+</div>
+
+<div class="page-wrap">
+
+  <div class="page-header">
+    <div class="breadcrumb">GirGuard AI &rsaquo; <span>Dashboard Overview</span></div>
+    <h1>Operational Dashboard</h1>
+    <p>GirGuard AI helps forest officials and village communities predict wildlife movement, issue early warnings, coordinate rapid response, and reduce conflict between people and Asiatic lions and leopards.</p>
+  </div>
+
+  <!-- KPI CARDS -->
+  <div class="kpi-grid">
+    <div class="kpi-card kpi-accent-red">
+      <span class="kpi-label">Active Alerts</span>
+      <span class="kpi-value" style="color:var(--red)">7</span>
+      <span class="kpi-sub">Across 5 villages</span>
+      <span class="kpi-trend trend-up">▲ 3 since yesterday</span>
+    </div>
+    <div class="kpi-card kpi-accent-amber">
+      <span class="kpi-label">High-Risk Villages</span>
+      <span class="kpi-value" style="color:var(--amber)">4</span>
+      <span class="kpi-sub">Sasan, Maliya, Dhari, Visavadar</span>
+      <span class="kpi-trend trend-up">▲ 1 newly elevated</span>
+    </div>
+    <div class="kpi-card kpi-accent-green">
+      <span class="kpi-label">Response Teams</span>
+      <span class="kpi-value" style="color:var(--green)">6</span>
+      <span class="kpi-sub">2 active · 4 on standby</span>
+      <span class="kpi-trend trend-down">● All units operational</span>
+    </div>
+    <div class="kpi-card kpi-accent-blue">
+      <span class="kpi-label">Incidents This Month</span>
+      <span class="kpi-value" style="color:var(--blue)">23</span>
+      <span class="kpi-sub">Lion: 14 · Leopard: 9</span>
+      <span class="kpi-trend trend-up">▲ 4 vs last month</span>
+    </div>
+    <div class="kpi-card kpi-accent-yellow">
+      <span class="kpi-label">Compensation Claims</span>
+      <span class="kpi-value" style="color:var(--yellow)">31</span>
+      <span class="kpi-sub">₹4.2L pending disbursal</span>
+      <span class="kpi-trend">● 12 approved · 8 under review</span>
+    </div>
+    <div class="kpi-card kpi-accent-green">
+      <span class="kpi-label">AI Prediction Accuracy</span>
+      <span class="kpi-value" style="color:var(--green)">87%</span>
+      <span class="kpi-sub">Last 30-day model score</span>
+      <span class="kpi-trend trend-down">▲ +2% from last cycle</span>
+    </div>
+  </div>
+
+  <!-- MAP PANEL -->
+  <div class="card" style="margin-bottom:24px;">
+    <div class="card-header">
+      <h3>🗺 Gir Forest — Live Conflict &amp; Movement Hotspot Map</h3>
+      <span class="card-meta">Updated 14:35 IST · Auto-refresh every 5 min</span>
+    </div>
+    <div class="map-placeholder">
+      <div class="map-label">GIR FOREST NATIONAL PARK &amp; SANCTUARY</div>
+      <div class="hotspot hs-critical" style="width:52px;height:52px;top:38%;left:18%;font-size:9px;text-align:center;line-height:1.2;">Sasan<br/>CRIT</div>
+      <div class="hotspot hs-high" style="width:44px;height:44px;top:22%;left:42%;font-size:9px;text-align:center;line-height:1.2;">Maliya<br/>HIGH</div>
+      <div class="hotspot hs-high" style="width:40px;height:40px;top:58%;left:60%;font-size:9px;text-align:center;line-height:1.2;">Dhari<br/>HIGH</div>
+      <div class="hotspot hs-medium" style="width:36px;height:36px;top:15%;left:68%;font-size:9px;text-align:center;line-height:1.2;">Visav.<br/>MED</div>
+      <div class="hotspot hs-medium" style="width:34px;height:34px;top:70%;left:30%;font-size:9px;text-align:center;line-height:1.2;">Talala<br/>MED</div>
+      <div class="hotspot hs-low" style="width:30px;height:30px;top:45%;left:78%;font-size:9px;text-align:center;line-height:1.2;">Una<br/>LOW</div>
+      <div class="hotspot hs-low" style="width:28px;height:28px;top:80%;left:72%;font-size:9px;text-align:center;line-height:1.2;">Kodinar<br/>LOW</div>
+      <div style="position:absolute;top:33%;left:13%;background:#fff;border:2px solid var(--red);border-radius:4px;padding:2px 6px;font-size:10px;font-weight:700;color:var(--red);">🦁 GIR-07</div>
+      <div style="position:absolute;top:50%;left:55%;background:#fff;border:2px solid var(--amber);border-radius:4px;padding:2px 6px;font-size:10px;font-weight:700;color:#b45309;">🐆 LEP-03</div>
+      <div style="position:absolute;bottom:12px;right:16px;background:rgba(27,67,50,0.8);color:#fff;font-size:10px;padding:4px 10px;border-radius:4px;">© Gir Forest Division, Gujarat Forest Dept.</div>
+    </div>
+    <div class="map-legend">
+      <div class="legend-item"><div class="legend-dot ld-critical"></div> Critical Zone</div>
+      <div class="legend-item"><div class="legend-dot ld-high"></div> High Risk</div>
+      <div class="legend-item"><div class="legend-dot ld-medium"></div> Medium Risk</div>
+      <div class="legend-item"><div class="legend-dot ld-low"></div> Low Risk</div>
+      <div class="legend-item" style="margin-left:auto;"><span style="color:var(--red);font-weight:700;">🦁</span> Lion GPS &nbsp;|&nbsp; <span style="color:#b45309;font-weight:700;">🐆</span> Leopard GPS</div>
+    </div>
+  </div>
+
+  <!-- ALERTS + TEAM STATUS -->
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-header"><h3>🔔 Active Alerts</h3><span class="card-meta">7 open alerts</span></div>
+      <div class="card-body">
+        <div class="alert-item">
+          <div class="alert-icon ai-critical">🦁</div>
+          <div class="alert-info"><div class="title">Lion sighting — Sasan village boundary</div><div class="meta">GPS Collar GIR-07 · 1.2 km · Camera Trap CT-14</div></div>
+          <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px;"><span class="badge badge-critical">Critical</span><span class="alert-time">14:32</span></div>
+        </div>
+        <div class="alert-item">
+          <div class="alert-icon ai-high">🐆</div>
+          <div class="alert-info"><div class="title">Leopard near livestock pen — Maliya</div><div class="meta">Camera Trap CT-09 · 0.8 km from cattle shed</div></div>
+          <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px;"><span class="badge badge-high">High</span><span class="alert-time">13:55</span></div>
+        </div>
+        <div class="alert-item">
+          <div class="alert-icon ai-high">🦁</div>
+          <div class="alert-info"><div class="title">Pride of 3 lions — Dhari forest edge</div><div class="meta">GPS Collar GIR-02, GIR-05 · Moving SE</div></div>
+          <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px;"><span class="badge badge-high">High</span><span class="alert-time">13:10</span></div>
+        </div>
+        <div class="alert-item">
+          <div class="alert-icon ai-medium">🦁</div>
+          <div class="alert-info"><div class="title">Lion tracks found — Visavadar road</div><div class="meta">Manual report · Range Officer Bharat Patel</div></div>
+          <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px;"><span class="badge badge-medium">Medium</span><span class="alert-time">11:40</span></div>
+        </div>
+        <div class="alert-item">
+          <div class="alert-icon ai-medium">🐆</div>
+          <div class="alert-info"><div class="title">Leopard movement — Talala outskirts</div><div class="meta">AI prediction · 68% confidence · Watch zone</div></div>
+          <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px;"><span class="badge badge-medium">Medium</span><span class="alert-time">10:22</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header"><h3>🚐 Response Team Status</h3><span class="card-meta">6 teams total</span></div>
+      <div class="card-body">
+        <div class="team-item">
+          <div class="team-avatar">RT1</div>
+          <div class="team-info" style="flex:1;"><div style="font-size:13px;font-weight:600;">Rapid Response Alpha</div><div style="font-size:11px;color:var(--muted);">Lead: D.K. Jadeja · Sasan Base</div></div>
+          <div style="text-align:right;"><span class="badge badge-active">Active</span><div style="font-size:11px;color:var(--muted);margin-top:3px;">En route GIR-07</div></div>
+        </div>
+        <div class="team-item">
+          <div class="team-avatar">RT2</div>
+          <div class="team-info" style="flex:1;"><div style="font-size:13px;font-weight:600;">Rapid Response Beta</div><div style="font-size:11px;color:var(--muted);">Lead: M. Solanki · Maliya Base</div></div>
+          <div style="text-align:right;"><span class="badge badge-enroute">En Route</span><div style="font-size:11px;color:var(--muted);margin-top:3px;">Dispatched 13:58</div></div>
+        </div>
+        <div class="team-item">
+          <div class="team-avatar">RT3</div>
+          <div class="team-info" style="flex:1;"><div style="font-size:13px;font-weight:600;">Wildlife Rescue Gamma</div><div style="font-size:11px;color:var(--muted);">Lead: P. Thakor · Dhari Base</div></div>
+          <div style="text-align:right;"><span class="badge badge-standby">Standby</span><div style="font-size:11px;color:var(--muted);margin-top:3px;">Available now</div></div>
+        </div>
+        <div class="team-item">
+          <div class="team-avatar">RT4</div>
+          <div class="team-info" style="flex:1;"><div style="font-size:13px;font-weight:600;">Community Patrol Delta</div><div style="font-size:11px;color:var(--muted);">Lead: H. Bamaniya · Talala Base</div></div>
+          <div style="text-align:right;"><span class="badge badge-standby">Standby</span><div style="font-size:11px;color:var(--muted);margin-top:3px;">Available now</div></div>
+        </div>
+        <div class="team-item">
+          <div class="team-avatar">RT5</div>
+          <div class="team-info" style="flex:1;"><div style="font-size:13px;font-weight:600;">Veterinary Unit Epsilon</div><div style="font-size:11px;color:var(--muted);">Lead: Dr. A. Shah · Sasan HQ</div></div>
+          <div style="text-align:right;"><span class="badge badge-resolved">Off Duty</span><div style="font-size:11px;color:var(--muted);margin-top:3px;">Available 16:00</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- INCIDENTS TABLE + COMP SUMMARY -->
+  <div class="grid-32">
+    <div class="card">
+      <div class="card-header"><h3>📋 Recent Incidents</h3><span class="card-meta">Last 7 days · 23 total this month</span></div>
+      <div class="card-body" style="padding:0;">
+        <table>
+          <thead><tr><th>ID</th><th>Location</th><th>Type</th><th>Species</th><th>Risk</th><th>Status</th></tr></thead>
+          <tbody>
+            <tr><td style="font-weight:600;color:var(--green-dark);">#INC-2431</td><td>Sasan</td><td>Lion Straying</td><td>🦁 Lion</td><td><span class="risk-pill risk-critical">● Critical</span></td><td><span class="badge badge-active">Active</span></td></tr>
+            <tr><td style="font-weight:600;color:var(--green-dark);">#INC-2430</td><td>Maliya</td><td>Livestock Kill</td><td>🐆 Leopard</td><td><span class="risk-pill risk-high">● High</span></td><td><span class="badge badge-enroute">Responding</span></td></tr>
+            <tr><td style="font-weight:600;color:var(--green-dark);">#INC-2429</td><td>Dhari Road</td><td>Human Injury</td><td>🦁 Lion</td><td><span class="risk-pill risk-critical">● Critical</span></td><td><span class="badge badge-resolved">Resolved</span></td></tr>
+            <tr><td style="font-weight:600;color:var(--green-dark);">#INC-2428</td><td>Visavadar</td><td>Property Damage</td><td>🐆 Leopard</td><td><span class="risk-pill risk-medium">● Medium</span></td><td><span class="badge badge-resolved">Resolved</span></td></tr>
+            <tr><td style="font-weight:600;color:var(--green-dark);">#INC-2427</td><td>Talala</td><td>Lion Sighting</td><td>🦁 Lion</td><td><span class="risk-pill risk-medium">● Medium</span></td><td><span class="badge badge-resolved">Resolved</span></td></tr>
+            <tr><td style="font-weight:600;color:var(--green-dark);">#INC-2426</td><td>Una</td><td>Livestock Kill</td><td>🦁 Lion</td><td><span class="risk-pill risk-high">● High</span></td><td><span class="badge badge-resolved">Resolved</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header"><h3>💰 Compensation Summary</h3><span class="card-meta">June 2025</span></div>
+      <div class="card-body">
+        <div class="stat-row"><span class="label">Paid / Disbursed</span><span class="value" style="color:var(--green);">11 · ₹1.65L</span></div>
+        <div class="stat-row"><span class="label">Approved</span><span class="value" style="color:var(--blue);">12 · ₹1.80L</span></div>
+        <div class="stat-row"><span class="label">Under Review</span><span class="value" style="color:var(--yellow);">8 · ₹0.75L</span></div>
+        <div class="stat-row"><span class="label">Pending Submission</span><span class="value" style="color:var(--red);">6</span></div>
+        <div class="stat-row"><span class="label">Total Claimed</span><span class="value">₹6.20L</span></div>
+        <div class="stat-row"><span class="label">Avg. Processing</span><span class="value">8.3 days</span></div>
+        <div style="margin-top:14px;">
+          <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--muted);margin-bottom:4px;"><span>Disbursement Progress</span><span style="font-weight:700;color:var(--green);">62%</span></div>
+          <div class="progress-bar"><div class="progress-fill pf-green" style="width:62%"></div></div>
+        </div>
+        <div style="margin-top:14px;"><a href="compensation.html"><button class="btn btn-green btn-sm">View All Claims</button></a></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="footer-top">
+    <div class="footer-brand">
+      <div class="brand-name"><div class="logo-icon">🦁</div> GirGuard AI</div>
+      <div class="brand-tagline">Human-Wildlife Conflict Mitigation System<br/>Gir Forest Region · Gujarat, India</div>
+      <div class="brand-desc">AI-powered platform to predict Asiatic lion and leopard movement, issue early warnings, coordinate response teams, and reduce human-wildlife conflict around Gir Forest.</div>
+      <div style="margin-top:14px;display:flex;gap:8px;flex-wrap:wrap;">
+        <span class="f-badge">🤖 AI-Powered</span><span class="f-badge">📡 Real-time</span><span class="f-badge">🌿 Conservation</span>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h5>Navigation</h5>
+      <ul>
+        <li><a href="index.html">Dashboard</a></li>
+        <li><a href="movement.html">Movement Prediction</a></li>
+        <li><a href="alerts.html">Village Alerts</a></li>
+        <li><a href="response.html">Response Teams</a></li>
+        <li><a href="compensation.html">Compensation</a></li>
+        <li><a href="hotspots.html">Hotspots</a></li>
+        <li><a href="reports.html">Reports</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>System Status</h5>
+      <div class="f-stat"><span style="color:#4ade80;">●</span> AI Agent: Online</div>
+      <div class="f-stat"><span style="color:#4ade80;">●</span> GPS Collars: 4/6 Active</div>
+      <div class="f-stat"><span style="color:#4ade80;">●</span> Camera Traps: 18/24</div>
+      <div class="f-stat"><span style="color:#4ade80;">●</span> Alert System: Active</div>
+      <div class="f-stat"><span style="color:#facc15;">●</span> Water Sensors: 3/5</div>
+    </div>
+    <div class="footer-col">
+      <h5>Contact</h5>
+      <ul>
+        <li><a href="#">Emergency: 1800-233-7878</a></li>
+        <li><a href="#">Forest HQ: Sasan-Gir</a></li>
+        <li><a href="#">DFO Junagadh Office</a></li>
+        <li><a href="#">Report a Sighting</a></li>
+        <li><a href="#">Technical Support</a></li>
+      </ul>
+    </div>
+  </div>
+  <hr class="footer-divider"/>
+  <div class="footer-bottom">
+    <p>© 2025 GirGuard AI · Gujarat Forest Department · Field operational use only</p>
+    <div class="footer-badges">
+      <span class="f-badge">Wildlife Protection Act 1972</span>
+      <span class="f-badge">Project Lion — MoEFCC</span>
+    </div>
+  </div>
+  <div class="bob-footer"><p>Made with IBM Bob &nbsp;·&nbsp; GirGuard AI &nbsp;·&nbsp; Gujarat Forest Department</p></div>
+</footer>
+</body>
+</html>
