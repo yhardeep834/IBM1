@@ -187,7 +187,7 @@ body {
 .wf-hero {
   position: relative;
   background: linear-gradient(135deg, rgba(18, 55, 42, 0.92), rgba(45, 106, 79, 0.88)), 
-              url('../brain/7e900302-f385-471d-bc72-f461bb6ed721/hero_background_1785339036580.jpg');
+              url('../images/hero_background.jpg');
   background-size: cover;
   background-position: center;
   border-radius: 24px;
