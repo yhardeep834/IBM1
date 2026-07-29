@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>GirGuard AI — Village Alerts</title>
+<link rel="stylesheet" href="css/styles.css"/>
+<style>
+  .village-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;margin-bottom:24px;}
+  .village-card{background:var(--white);border:1px solid var(--border);border-radius:10px;overflow:hidden;}
+  .village-card-top{padding:14px 16px;display:flex;align-items:center;gap:12px;border-bottom:1px solid var(--border);}
+  .village-icon{width:40px;height:40px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;}
+  .vi-critical{background:var(--red-light);}
+  .vi-high{background:var(--amber-light);}
+  .vi-medium{background:var(--yellow-light);}
+  .vi-low{background:var(--green-pale);}
+  .village-name{font-size:14px;font-weight:700;}
+  .village-dist{font-size:11px;color:var(--muted);}
+  .village-card-body{padding:12px 16px;}
+  .vc-row{display:flex;justify-content:space-between;font-size:12px;padding:4px 0;border-bottom:1px solid var(--border);}
+  .vc-row:last-child{border-bottom:none;}
+  .vc-label{color:var(--muted);}
+  .vc-value{font-weight:600;}
+  .village-card-footer{padding:10px 16px;border-top:1px solid var(--border);display:flex;gap:8px;}
+  .channel-icons{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px;}
+  .ch-icon{padding:3px 9px;border-radius:5px;font-size:11px;font-weight:600;display:flex;align-items:center;gap:4px;}
+  .ch-sms{background:#e8f5e9;color:#2d6a4f;}
+  .ch-wa{background:#e8f5f0;color:#075e54;}
+  .ch-call{background:var(--amber-light);color:#b45309;}
+  .ch-siren{background:var(--red-light);color:var(--red);}
+  .notif-preview{background:var(--charcoal);border-radius:14px;padding:14px 16px;color:#fff;margin-top:14px;}
+  .notif-header{font-size:11px;color:#9ca3af;margin-bottom:8px;display:flex;justify-content:space-between;}
+  .notif-body{font-size:13px;line-height:1.55;}
+  .notif-footer{font-size:11px;color:#6b7280;margin-top:8px;}
+  .notif-preview.wa{background:#075e54;}
+  .notif-preview.sms{background:#1e3a5f;}
+  .safety-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px;margin-bottom:24px;}
+  .safety-card{background:var(--white);border:1px solid var(--border);border-radius:10px;padding:16px;}
+  .safety-card .s-icon{font-size:26px;margin-bottom:8px;}
+  .safety-card h4{font-size:13px;font-weight:700;color:var(--charcoal);margin-bottom:6px;}
+  .safety-card p{font-size:12px;color:var(--muted);line-height:1.5;}
+  .safety-card.s-critical{border-left:4px solid var(--red);}
+  .safety-card.s-warning{border-left:4px solid var(--amber);}
+  .safety-card.s-info{border-left:4px solid var(--blue);}
+  .safety-card.s-good{border-left:4px solid var(--green);}
+  .sev-selector{display:flex;gap:8px;flex-wrap:wrap;margin-top:4px;}
+  .sev-btn{padding:6px 14px;border-radius:20px;font-size:12px;font-weight:600;cursor:pointer;border:2px solid transparent;}
+  .sev-low{background:var(--green-pale);color:var(--green-dark);border-color:var(--green);}
+  .sev-medium{background:var(--yellow-light);color:#92400e;border-color:var(--yellow);}
+  .sev-high{background:var(--amber-light);color:#b45309;border-color:var(--amber);}
+  .sev-critical{background:var(--red-light);color:var(--red);border-color:var(--red);}
+  .ch-checkboxes{display:flex;gap:14px;flex-wrap:wrap;margin-top:4px;}
+  .ch-check{display:flex;align-items:center;gap:6px;font-size:13px;color:var(--slate);cursor:pointer;}
+</style>
+</head>
+<body>
+<nav class="navbar">
+  <a class="navbar-brand" href="index.html"><div class="logo-icon">🦁</div><div class="brand-text">GirGuard AI<span class="tagline">Human-Wildlife Conflict Mitigation</span></div></a>
+  <ul class="navbar-nav">
+    <li><a href="index.html">Overview</a></li><li><a href="movement.html">Movement</a></li>
+    <li><a href="alerts.html" class="active">Alerts</a></li><li><a href="response.html">Response</a></li>
+    <li><a href="compensation.html">Compensation</a></li><li><a href="hotspots.html">Hotspots</a></li><li><a href="reports.html">Reports</a></li>
+  </ul>
+  <div class="navbar-right"><span class="role-badge">Alert Officer</span><div class="user-avatar">RK</div></div>
+</nav>
+
+<div class="page-wrap">
+  <div class="page-header">
+    <div class="breadcrumb">GirGuard AI › <span>Village Alert &amp; Early Warning</span></div>
+    <h1>Village Alert &amp; Early Warning Agent</h1>
+    <p>Monitor village-level threat status, dispatch SMS/WhatsApp/phone alerts, and track acknowledgements in real time.</p>
+  </div>
+
+  <div class="grid-3" style="margin-bottom:24px;">
+    <div class="kpi-card kpi-accent-red"><span class="kpi-label">Active Alerts</span><span class="kpi-value" style="color:var(--red)">7</span><span class="kpi-sub">2 Critical · 3 High · 2 Medium</span></div>
+    <div class="kpi-card kpi-accent-blue"><span class="kpi-label">Alerts Sent Today</span><span class="kpi-value" style="color:var(--blue)">34</span><span class="kpi-sub">SMS: 18 · WhatsApp: 12 · Call: 4</span></div>
+    <div class="kpi-card kpi-accent-green"><span class="kpi-label">Acknowledgement Rate</span><span class="kpi-value" style="color:var(--green)">79%</span><span class="kpi-sub">27 of 34 confirmed received</span></div>
+  </div>
+
+  <div class="section-title">🏘 Village-wise Alert Status</div>
+  <div class="village-grid">
+    <div class="village-card">
+      <div class="village-card-top"><div class="village-icon vi-critical">🏡</div><div style="flex:1;"><div class="village-name">Sasan</div><div class="village-dist">Junagadh · Pop: 4,820 · 312 volunteers</div></div><span class="badge badge-critical">Critical</span></div>
+      <div class="village-card-body">
+        <div class="vc-row"><span class="vc-label">Threat</span><span class="vc-value" style="color:var(--red);">🦁 Lion GIR-07 · 1.2 km</span></div>
+        <div class="vc-row"><span class="vc-label">Last Alert</span><span class="vc-value">14:32 IST</span></div>
+        <div class="vc-row"><span class="vc-label">Volunteers Notified</span><span class="vc-value">28 / 31</span></div>
+        <div class="vc-row"><span class="vc-label">Ack. Status</span><span class="vc-value" style="color:var(--green);">21 confirmed</span></div>
+        <div class="channel-icons"><span class="ch-icon ch-sms">📱 SMS</span><span class="ch-icon ch-wa">💬 WhatsApp</span><span class="ch-icon ch-siren">🚨 Siren</span></div>
+      </div>
+      <div class="village-card-footer"><button class="btn btn-danger btn-sm">Re-Alert</button><button class="btn btn-outline btn-sm">History</button></div>
+    </div>
+    <div class="village-card">
+      <div class="village-card-top"><div class="village-icon vi-high">🏡</div><div style="flex:1;"><div class="village-name">Maliya Hatina</div><div class="village-dist">Amreli · Pop: 3,140 · 204 volunteers</div></div><span class="badge badge-high">High</span></div>
+      <div class="village-card-body">
+        <div class="vc-row"><span class="vc-label">Threat</span><span class="vc-value" style="color:#b45309;">🐆 Leopard LEP-03 · 0.8 km</span></div>
+        <div class="vc-row"><span class="vc-label">Last Alert</span><span class="vc-value">13:55 IST</span></div>
+        <div class="vc-row"><span class="vc-label">Volunteers Notified</span><span class="vc-value">19 / 22</span></div>
+        <div class="vc-row"><span class="vc-label">Ack. Status</span><span class="vc-value" style="color:var(--amber);">14 confirmed</span></div>
+        <div class="channel-icons"><span class="ch-icon ch-sms">📱 SMS</span><span class="ch-icon ch-wa">💬 WhatsApp</span><span class="ch-icon ch-call">📞 Call</span></div>
+      </div>
+      <div class="village-card-footer"><button class="btn btn-amber btn-sm">Re-Alert</button><button class="btn btn-outline btn-sm">History</button></div>
+    </div>
+    <div class="village-card">
+      <div class="village-card-top"><div class="village-icon vi-high">🏡</div><div style="flex:1;"><div class="village-name">Dhari</div><div class="village-dist">Amreli · Pop: 6,200 · 418 volunteers</div></div><span class="badge badge-high">High</span></div>
+      <div class="village-card-body">
+        <div class="vc-row"><span class="vc-label">Threat</span><span class="vc-value" style="color:#b45309;">🦁 Pride GIR-02/05 · 2.1 km</span></div>
+        <div class="vc-row"><span class="vc-label">Last Alert</span><span class="vc-value">13:10 IST</span></div>
+        <div class="vc-row"><span class="vc-label">Volunteers Notified</span><span class="vc-value">35 / 42</span></div>
+        <div class="vc-row"><span class="vc-label">Ack. Status</span><span class="vc-value" style="color:var(--amber);">28 confirmed</span></div>
+        <div class="channel-icons"><span class="ch-icon ch-sms">📱 SMS</span><span class="ch-icon ch-wa">💬 WhatsApp</span></div>
+      </div>
+      <div class="village-card-footer"><button class="btn btn-amber btn-sm">Re-Alert</button><button class="btn btn-outline btn-sm">History</button></div>
+    </div>
+    <div class="village-card">
+      <div class="village-card-top"><div class="village-icon vi-medium">🏡</div><div style="flex:1;"><div class="village-name">Visavadar</div><div class="village-dist">Junagadh · Pop: 5,430 · 290 volunteers</div></div><span class="badge badge-medium">Medium</span></div>
+      <div class="village-card-body">
+        <div class="vc-row"><span class="vc-label">Threat</span><span class="vc-value" style="color:#92400e;">🐆 Leopard LEP-03 · 3.4 km</span></div>
+        <div class="vc-row"><span class="vc-label">Last Alert</span><span class="vc-value">11:40 IST</span></div>
+        <div class="vc-row"><span class="vc-label">Volunteers Notified</span><span class="vc-value">22 / 29</span></div>
+        <div class="vc-row"><span class="vc-label">Ack. Status</span><span class="vc-value" style="color:var(--green);">20 confirmed</span></div>
+        <div class="channel-icons"><span class="ch-icon ch-sms">📱 SMS</span><span class="ch-icon ch-wa">💬 WhatsApp</span></div>
+      </div>
+      <div class="village-card-footer"><button class="btn btn-green btn-sm">Update Alert</button><button class="btn btn-outline btn-sm">History</button></div>
+    </div>
+    <div class="village-card">
+      <div class="village-card-top"><div class="village-icon vi-medium">🏡</div><div style="flex:1;"><div class="village-name">Talala</div><div class="village-dist">Gir Somnath · Pop: 8,900 · 510 volunteers</div></div><span class="badge badge-medium">Medium</span></div>
+      <div class="village-card-body">
+        <div class="vc-row"><span class="vc-label">Threat</span><span class="vc-value" style="color:#92400e;">🦁 GIR-05 · 4.0 km</span></div>
+        <div class="vc-row"><span class="vc-label">Last Alert</span><span class="vc-value">10:22 IST</span></div>
+        <div class="vc-row"><span class="vc-label">Volunteers Notified</span><span class="vc-value">40 / 51</span></div>
+        <div class="vc-row"><span class="vc-label">Ack. Status</span><span class="vc-value" style="color:var(--green);">38 confirmed</span></div>
+        <div class="channel-icons"><span class="ch-icon ch-sms">📱 SMS</span><span class="ch-icon ch-wa">💬 WhatsApp</span></div>
+      </div>
+      <div class="village-card-footer"><button class="btn btn-green btn-sm">Update Alert</button><button class="btn btn-outline btn-sm">History</button></div>
+    </div>
+    <div class="village-card">
+      <div class="village-card-top"><div class="village-icon vi-low">🏡</div><div style="flex:1;"><div class="village-name">Una</div><div class="village-dist">Gir Somnath · Pop: 12,400 · 620 volunteers</div></div><span class="badge badge-low">Low</span></div>
+      <div class="village-card-body">
+        <div class="vc-row"><span class="vc-label">Threat</span><span class="vc-value" style="color:var(--green);">No active threat</span></div>
+        <div class="vc-row"><span class="vc-label">Last Alert</span><span class="vc-value">Yesterday 18:10</span></div>
+        <div class="vc-row"><span class="vc-label">Status</span><span class="vc-value" style="color:var(--green);">All clear</span></div>
+        <div class="channel-icons"><span class="ch-icon ch-sms" style="opacity:0.5;">📱 SMS</span></div>
+      </div>
+      <div class="village-card-footer"><button class="btn btn-outline btn-sm">Send Advisory</button><button class="btn btn-outline btn-sm">History</button></div>
+    </div>
+  </div>
+
+  <!-- SEND ALERT + PREVIEW -->
+  <div class="grid-32">
+    <div class="card">
+      <div class="card-header"><h3>📤 Send New Alert</h3><span class="card-meta">Gujarat Livestock Loss Scheme</span></div>
+      <div class="card-body">
+        <div class="form-grid">
+          <div class="form-group"><label>Village / Zone</label><select><option>Sasan — CRITICAL</option><option>Maliya Hatina — HIGH</option><option>Dhari — HIGH</option><option>Visavadar — MEDIUM</option><option>All High-Risk Villages</option></select></div>
+          <div class="form-group"><label>Alert Type</label><select><option>🦁 Lion Sighting</option><option>🐆 Leopard Sighting</option><option>⚠️ Livestock Kill</option><option>🚨 Human Injury</option><option>✅ All Clear</option></select></div>
+          <div class="form-group full"><label>Severity Level</label><div class="sev-selector"><button class="sev-btn sev-low">Low</button><button class="sev-btn sev-medium">Medium</button><button class="sev-btn sev-high">High</button><button class="sev-btn sev-critical">Critical</button></div></div>
+          <div class="form-group full"><label>Alert Message</label><textarea>🚨 CRITICAL ALERT: Male Asiatic Lion spotted 1.2 km from Sasan village. Stay indoors. Secure livestock. Forest team is on the way. — GirGuard AI / Gujarat Forest Dept.</textarea></div>
+          <div class="form-group full"><label>Notification Channels</label><div class="ch-checkboxes"><label class="ch-check"><input type="checkbox" checked> 📱 SMS</label><label class="ch-check"><input type="checkbox" checked> 💬 WhatsApp</label><label class="ch-check"><input type="checkbox"> 📞 Automated Call</label><label class="ch-check"><input type="checkbox"> 🚨 Siren</label></div></div>
+          <div class="form-group"><label>Recipient Group</label><select><option>Village Volunteers (Sasan)</option><option>Forest Range Officers</option><option>All Registered Villagers</option></select></div>
+          <div class="form-group"><label>Priority</label><select><option>Immediate — Send Now</option><option>Scheduled</option><option>Repeat Every 30 min</option></select></div>
+        </div>
+        <div style="display:flex;gap:10px;margin-top:16px;flex-wrap:wrap;align-items:center;">
+          <button class="btn btn-danger">🚨 Send Alert Now</button>
+          <button class="btn btn-outline">Preview</button>
+          <span style="font-size:12px;color:var(--muted);margin-left:auto;">Est. recipients: <strong>312</strong></span>
+        </div>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:14px;">
+      <div class="card"><div class="card-header"><h3>📱 SMS Preview</h3></div><div class="card-body"><div class="notif-preview sms"><div class="notif-header"><span>GirGuard AI · Forest Dept.</span><span>14:32</span></div><div class="notif-body">🚨 CRITICAL: Lion spotted 1.2km from Sasan. Stay indoors. Secure livestock. Team dispatched. Helpline: 1800-233-7878</div><div class="notif-footer">GirGuard AI · DO NOT REPLY</div></div></div></div>
+      <div class="card"><div class="card-header"><h3>💬 WhatsApp Preview</h3></div><div class="card-body"><div class="notif-preview wa"><div class="notif-header"><span>GirGuard AI Official 🦁</span><span>14:32</span></div><div class="notif-body">🚨 *CRITICAL ALERT — SASAN*<br/><br/>Lion GIR-07 is *1.2 km* away. AI Confidence: 91%.<br/><br/>✅ Stay indoors<br/>✅ Secure livestock<br/>✅ Response team en route<br/><br/>📞 1800-233-7878</div></div></div></div>
+      <div class="card"><div class="card-header"><h3>Delivery Stats</h3></div><div class="card-body"><div class="stat-row"><span class="label">Sent</span><span class="value" style="color:var(--green);">312</span></div><div class="stat-row"><span class="label">Delivered</span><span class="value" style="color:var(--green);">298 (95.5%)</span></div><div class="stat-row"><span class="label">Read</span><span class="value" style="color:var(--blue);">247 (79.2%)</span></div><div class="stat-row"><span class="label">Failed</span><span class="value" style="color:var(--red);">14 (4.5%)</span></div></div></div>
+    </div>
+  </div>
+
+  <!-- ALERT HISTORY -->
+  <div class="section-title">📋 Alert History Log <span class="sub">Last 24 hours</span></div>
+  <div class="card" style="margin-bottom:24px;"><div class="card-body" style="padding:0;">
+    <table>
+      <thead><tr><th>Alert ID</th><th>Time</th><th>Village</th><th>Type</th><th>Severity</th><th>Sent</th><th>Ack.</th><th>Status</th></tr></thead>
+      <tbody>
+        <tr><td style="font-weight:600;color:var(--green-dark);">#ALT-0891</td><td>14:32</td><td><strong>Sasan</strong></td><td>🦁 Lion Sighting</td><td><span class="badge badge-critical">Critical</span></td><td>312</td><td style="color:var(--green);">247</td><td><span class="badge badge-sent">Active</span></td></tr>
+        <tr><td style="font-weight:600;color:var(--green-dark);">#ALT-0890</td><td>13:55</td><td><strong>Maliya</strong></td><td>🐆 Leopard Near Livestock</td><td><span class="badge badge-high">High</span></td><td>204</td><td style="color:var(--green);">169</td><td><span class="badge badge-sent">Active</span></td></tr>
+        <tr><td style="font-weight:600;color:var(--green-dark);">#ALT-0889</td><td>13:10</td><td><strong>Dhari</strong></td><td>🦁 Pride Moving SE</td><td><span class="badge badge-high">High</span></td><td>418</td><td style="color:var(--green);">380</td><td><span class="badge badge-sent">Active</span></td></tr>
+        <tr><td style="font-weight:600;color:var(--green-dark);">#ALT-0888</td><td>11:40</td><td><strong>Visavadar</strong></td><td>🦁 Lion Tracks Found</td><td><span class="badge badge-medium">Medium</span></td><td>290</td><td style="color:var(--green);">271</td><td><span class="badge badge-ack">Acknowledged</span></td></tr>
+        <tr><td style="font-weight:600;color:var(--green-dark);">#ALT-0887</td><td>10:22</td><td><strong>Talala</strong></td><td>🐆 Leopard Movement</td><td><span class="badge badge-medium">Medium</span></td><td>510</td><td style="color:var(--green);">492</td><td><span class="badge badge-ack">Acknowledged</span></td></tr>
+        <tr><td style="font-weight:600;color:var(--green-dark);">#ALT-0886</td><td>08:15</td><td><strong>Sasan</strong></td><td>✅ All Clear</td><td><span class="badge badge-low">Low</span></td><td>312</td><td style="color:var(--green);">298</td><td><span class="badge badge-ack">Resolved</span></td></tr>
+      </tbody>
+    </table>
+  </div></div>
+
+  <!-- SAFETY INSTRUCTIONS -->
+  <div class="section-title">🛡 Villager Safety Instructions</div>
+  <div class="safety-grid">
+    <div class="safety-card s-critical"><div class="s-icon">🚪</div><h4>Stay Indoors</h4><p>When a Critical alert is active, do not step outside after dusk. Keep doors and windows closed.</p></div>
+    <div class="safety-card s-critical"><div class="s-icon">🐄</div><h4>Secure Livestock</h4><p>Bring all cattle, goats, and sheep into enclosed sheds immediately. Do not leave animals unattended.</p></div>
+    <div class="safety-card s-warning"><div class="s-icon">🔦</div><h4>Use Light &amp; Noise</h4><p>Carry a bright torch if you must go outside. Make noise while walking. Lions avoid loud, visible people.</p></div>
+    <div class="safety-card s-warning"><div class="s-icon">👥</div><h4>Move in Groups</h4><p>Never go to fields or forests alone during active alerts. Travel in groups of at least 4–5 people.</p></div>
+    <div class="safety-card s-info"><div class="s-icon">📞</div><h4>Emergency Helpline</h4><p>Call <strong>1800-233-7878</strong> (toll-free, 24×7) if you spot a lion or leopard. Do not approach alone.</p></div>
+    <div class="safety-card s-good"><div class="s-icon">✅</div><h4>Wait for All-Clear</h4><p>Resume normal activities only after receiving an official All-Clear from GirGuard AI or Range Officer.</p></div>
+  </div>
+
+</div>
+
+<footer class="site-footer">
+  <div class="footer-top">
+    <div class="footer-brand"><div class="brand-name"><div class="logo-icon">🦁</div> GirGuard AI</div><div class="brand-tagline">Human-Wildlife Conflict Mitigation · Gir Forest, Gujarat</div></div>
+    <div class="footer-col"><h5>Navigation</h5><ul><li><a href="index.html">Dashboard</a></li><li><a href="movement.html">Movement</a></li><li><a href="alerts.html">Alerts</a></li><li><a href="response.html">Response</a></li><li><a href="compensation.html">Compensation</a></li><li><a href="hotspots.html">Hotspots</a></li><li><a href="reports.html">Reports</a></li></ul></div>
+    <div class="footer-col"><h5>System Status</h5><div class="f-stat"><span style="color:#4ade80;">●</span> AI Agent: Online</div><div class="f-stat"><span style="color:#4ade80;">●</span> Alert System: Active</div></div>
+    <div class="footer-col"><h5>Contact</h5><ul><li><a href="#">Emergency: 1800-233-7878</a></li><li><a href="#">Forest HQ: Sasan-Gir</a></li></ul></div>
+  </div>
+  <hr class="footer-divider"/>
+  <div class="footer-bottom"><p>© 2025 GirGuard AI · Gujarat Forest Department</p></div>
+  <div class="bob-footer"><p>Made with IBM Bob &nbsp;·&nbsp; GirGuard AI &nbsp;·&nbsp; Gujarat Forest Department</p></div>
+</footer>
+</body>
+</html>
